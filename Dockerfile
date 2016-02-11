@@ -9,7 +9,11 @@ RUN apk update && \
     unzip -q /tmp/go-agent.zip && rm -f /tmp/go-agent.zip && \
     mv /opt/go-agent-${GOCD_VER} /opt/go-agent && \
     rm -rf /var/cache/apk/* /tmp/*
-#ADD etc/consul.d/go-server.json /etc/consul.d/
-#ADD etc/init.d/go-server /etc/init.d/
+RUN apk update && \
+    apk add git docker && \
+    rm -rf /var/cache/apk/* /tmp/*
+ADD etc/init.d/go-agent /etc/init.d/
+RUN ln -s /etc/init.d/go-agent /etc/runlevels/default/ && \
+    chmod +x /opt/go-agent/agent.sh
 
 

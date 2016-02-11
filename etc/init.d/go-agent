@@ -1,0 +1,16 @@
+#!/sbin/runscript
+  
+start() {
+    ebegin "Starting go-agent"
+    export JAVA_HOME=/opt/jdk
+    export GO_SERVER=go-server.node.consul
+    /opt/go-agent/agent.sh 1>/var/log/go-agent.stdout 2>/var/log/go-agent.stderr &
+    echo $$ > /opt/go-agent/go-agent.pid
+    eend $?
+}
+  
+stop() {
+    ebegin "Stopping go-agent"
+    /opt/go-server/stop-server.sh
+    eend $?
+}
