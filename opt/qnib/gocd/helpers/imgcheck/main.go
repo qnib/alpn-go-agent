@@ -5,7 +5,7 @@ import (
     "os"
     "strings"
     "flag"
-    
+
     "github.com/fsouza/go-dockerclient"
 )
 
@@ -13,7 +13,7 @@ func main() {
     var compTag string
     flag.StringVar(&compTag, "tag", "latest", "Tag to compare the current ($GO_PIPELINE_COUNTER) tag against")
     flag.Parse()
-    
+
     endpoint := os.Getenv("DOCKER_HOST")
     if endpoint == "" {
         endpoint = "unix:///var/run/docker.sock"
@@ -21,7 +21,14 @@ func main() {
     client, _ := docker.NewClient(endpoint)
     imgs, _ := client.ListImages(docker.ListImagesOptions{All: false})
     imgName := fmt.Sprintf("qnib/%s", os.Getenv("GO_PIPELINE_NAME"))
-    imgTag := os.Getenv("GO_PIPELINE_COUNTER")
+    nameArr := strings.Split(os.Getenv("GO_PIPELINE_NAME"), "_")
+    if len(nameArr) == 2 {
+        imgName = fmt.Sprintf("qnib/%s", nameArr[0])
+    } else if len(nameArr) > 2 {
+        fmt.Printf("Weird image name '%s'", os.Getenv("GO_PIPELINE_NAME"))
+        os.Exit(1)
+    }
+    imgTag := fmt.Sprintf("%s_%s", compTag, os.Getenv("GO_PIPELINE_COUNTER"))
     var latest string
     var current string
     for _, img := range imgs {
@@ -47,7 +54,7 @@ func main() {
         fmt.Printf("FAIL > '%s' :  '%s'==%s !! Therefore we do not need to go on...\n", imgName, imgTag, compTag)
         os.Exit(1)
     } else {
-        fmt.Printf("PASS > '%s' :  '%s'!=%s\n", imgName, imgTag, compTag)
+        fmt.Printf("PASS > '%s' :  (%s)'%s'!=%s(%s)\n", imgName, latest, imgTag, compTag, current)
         os.Exit(0)
     }
 }
