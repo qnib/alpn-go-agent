@@ -21,4 +21,4 @@ RUN apk update && \
     go get -d && go build && \
     apk del go && \
     rm -rf /var/cache/apk/* /tmp/*
-
+ADD opt/go-agent/config/autoregister.properties /opt/go-agent/config/
