@@ -22,3 +22,5 @@ RUN apk update && \
     apk del go && \
     rm -rf /var/cache/apk/* /tmp/*
 ADD opt/go-agent/config/autoregister.properties /opt/go-agent/config/
+RUN wget -qO /usr/local/bin/go-github https://github.com/qnib/go-github/releases/download/0.2.2/go-github_0.2.2_Linux && \
+    chmod +x /usr/local/bin/go-github
