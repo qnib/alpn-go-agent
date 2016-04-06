@@ -1,8 +1,6 @@
-FROM qnib/alpn-jre7
+FROM qnib/gocd-base
 
-ENV GOCD_VER=16.1.0 \
-    GOCD_SUBVER=2855 \
-    GO_SERVER=gocd-server.node.consul
+ENV GO_SERVER=gocd-server.node.consul
 RUN apk update && \
     apk add wget git docker && \
     pip install docker-compose && \
