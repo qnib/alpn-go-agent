@@ -2,7 +2,7 @@ FROM qnib/gocd-base
 
 ENV GO_SERVER=gocd-server.node.consul
 RUN apk update && \
-    apk add wget git docker && \
+    apk add wget git docker jq && \
     pip install docker-compose && \
     wget -qO /tmp/go-agent.zip https://download.go.cd/binaries/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip && \
     mkdir -p /opt/ && cd /opt/ && \
