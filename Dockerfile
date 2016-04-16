@@ -1,8 +1,7 @@
 FROM qnib/gocd-base
 
 ENV GO_SERVER=gocd-server.node.consul
-RUN apk update \
- && apk add wget git docker jq perl sed \
+RUN apk add --update wget git docker jq perl sed \
  && pip install docker-compose \
  && wget -qO /tmp/go-agent.zip https://download.go.cd/binaries/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip \
  && mkdir -p /opt/ && cd /opt/ \
@@ -24,6 +23,11 @@ ADD etc/consul.d/docker-engine.json \
     etc/consul.d/
 ADD opt/qnib/docker/engine/bin/start.sh /opt/qnib/docker/engine/bin/
 ADD opt/qnib/gocd/tasks/docker/build.sh \
+    opt/qnib/gocd/tasks/docker/check_img.sh \
+    opt/qnib/gocd/tasks/docker/faild_test.sh \
+    opt/qnib/gocd/tasks/docker/postbuild.sh \
     opt/qnib/gocd/tasks/docker/prebuild.sh \
+    opt/qnib/gocd/tasks/docker/publish.sh \
+    opt/qnib/gocd/tasks/docker/test.sh \
     /opt/qnib/gocd/tasks/docker/
 ADD opt/qnib/gocd/helpers/gocd-functions.sh /opt/qnib/gocd/helpers/
