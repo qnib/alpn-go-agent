@@ -9,7 +9,7 @@ else
 fi
 echo ">> BUILD_IMG_NAME:${BUILD_IMG_NAME}"
 
-if [ -d test ];then
+if [ "X${SKIP_TEST}" != "Xtrue" ] && [ -d test ];then
     echo ">>>> Run test"
     cd test
     ./run.sh
