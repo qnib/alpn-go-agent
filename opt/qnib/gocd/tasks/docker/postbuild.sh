@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ">> postbuild"
 set -e
 
 mkdir -p binpkg
