@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ">> Publish"
 set -e
 
 IMG_NAME=$(echo ${GO_PIPELINE_NAME} |awk -F'[\_\.]' '{print $1}')

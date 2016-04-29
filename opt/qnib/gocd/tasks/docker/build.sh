@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+echo ">> BUILD"
 
 source /opt/qnib/gocd/helpers/gocd-functions.sh
 

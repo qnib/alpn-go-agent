@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ">> Since the test has failed"
 set -e
 
 IMG_NAME=$(echo ${GO_PIPELINE_NAME} |awk -F'[\_\.]' '{print $1}')

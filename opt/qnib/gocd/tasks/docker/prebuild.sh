@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ">> Prebuild"
 set -e
 
 if [ -d docker ];then

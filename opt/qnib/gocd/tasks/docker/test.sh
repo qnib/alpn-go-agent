@@ -1,4 +1,5 @@
 #!/bin/bash
+echo ">> Test"
 set -e
 
 export IMG_NAME=$(echo ${GO_PIPELINE_NAME} |awk -F'[\_\.]' '{print $1}')
