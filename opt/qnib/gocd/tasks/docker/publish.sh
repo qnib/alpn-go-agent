@@ -1,6 +1,6 @@
 #!/bin/bash
 echo ">> Publish"
-set -e
+set -xe
 
 IMG_NAME=$(echo ${GO_PIPELINE_NAME} |awk -F'[\_\.]' '{print $1}')
 if [ -z ${GO_REVISION} ];then
