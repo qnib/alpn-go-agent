@@ -19,10 +19,15 @@ else
 fi
 
 if [ "X${DOCKER_REG}" != "X" ];then
+    BUILD_REV_NAME="${DOCKER_REPO-qnib}/${IMG_NAME}:${DOCKER_TAG}-rev${GO_PIPELINE_COUNTER}"
+    if [ ${BUILD_IMG_NAME} != ${BUILD_REV_NAME} ];then
+        docker tag -f ${BUILD_IMG_NAME} ${DOCKER_REG}/${BUILD_REV_NAME}
+        docker push ${DOCKER_REG}/${BUILD_REV_NAME}
+        docker rmi ${DOCKER_REG}/${BUILD_REV_NAME}
+    fi
     docker tag -f ${BUILD_IMG_NAME} ${DOCKER_REG}/${BUILD_IMG_NAME}
     docker push ${DOCKER_REG}/${BUILD_IMG_NAME}
     docker rmi ${DOCKER_REG}/${BUILD_IMG_NAME}
-
 else
    echo ">> Skip pushing to registry, since none set"
 fi
