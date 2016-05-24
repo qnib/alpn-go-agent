@@ -2,13 +2,9 @@
 echo ">> Publish"
 set -xe
 
-IMG_NAME=$(echo ${GO_PIPELINE_NAME} |awk -F'[\_\.]' '{print $1}')
-if [ -z ${GO_REVISION} ];then
-    export BUILD_IMG_NAME="${DOCKER_REPO-gaikai}/${IMG_NAME}:${DOCKER_TAG}-${GO_REVISION_DOCKER_}-rev${GO_PIPELINE_COUNTER}"
-else
-    export BUILD_IMG_NAME="${DOCKER_REPO-gaikai}/${IMG_NAME}:${DOCKER_TAG}-${GO_REVISION}-rev${GO_PIPELINE_COUNTER}"
-fi
-echo ">> BUILD_IMG_NAME:${BUILD_IMG_NAME}"
+source /opt/qnib/gocd/helpers/gocd-functions.sh
+# Create BUILD_IMG_NAME, which includes the git-hash and the revision of the pipeline
+assemble_build_img_name
 
 
 if [ "X${SKIP_TAG_LATEST}" != "Xtrue" ];then
