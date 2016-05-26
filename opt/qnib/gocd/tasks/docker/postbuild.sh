@@ -23,6 +23,8 @@ if [ -x postbuild.sh ];then
 fi
 
 if [ "${GOCD_LOCAL_DOCKERENGINE}" != "true" ] && [ "${GOCD_CLEAN_IMAGES}" == "true" ];then
+    echo "> Remove unstarted containers"
+    docker rm $(docker ps -qa)
     echo "> Remove unused images"
     docker rmi $(docker images -qa)
 fi
