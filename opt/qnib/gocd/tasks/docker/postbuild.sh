@@ -21,3 +21,10 @@ if [ -x postbuild.sh ];then
         ./postbuild.sh
     fi
 fi
+
+if [ "${GOCD_LOCAL_DOCKERENGINE}" != "true" ] && [ "${GOCD_CLEAN_IMAGES}" == "true" ];then
+    echo "> Remove unused images"
+    docker rmi $(docker images -qa)
+fi
+
+
