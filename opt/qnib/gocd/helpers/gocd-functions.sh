@@ -26,7 +26,7 @@ function query_parent {
 function add_reg_to_dockerfile {
     echo ">>>> Add DOCKER_REG to Dockerfile"
     REG_IMG_NAME=$(grep ^FROM Dockerfile | awk '{print $2}')
-    if [ $(echo ${REG_IMG_NAME} | grep -o "/" | wc -l) -gt 2 ];then
+    if [ $(echo ${REG_IMG_NAME} | grep -o "/" | wc -l) -gt 1 ];then
         echo "Sure you wanna add the registry? Looks not right: ${REG_IMG_NAME}"
     elif [ $(echo ${REG_IMG_NAME} | grep -o "/" | wc -l) -eq 0 ];then
         echo "Image is an official one, so we skip it '${REG_IMG_NAME}'"
