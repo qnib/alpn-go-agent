@@ -1,9 +1,9 @@
-FROM qnib/gocd-base
+FROM qnib/gocd-base:16.6.0
 
 ENV GO_SERVER=gocd-server.node.consul \
     GOCD_LOCAL_DOCKERENGINE=false \
     GOCD_CLEAN_IMAGES=false
-RUN apk add --update wget git docker jq perl sed bc \
+RUN apk add --update wget git docker jq perl sed bc curl \
  && pip install docker-compose \
  && wget -qO /tmp/go-agent.zip https://download.go.cd/binaries/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip \
  && mkdir -p /opt/ && cd /opt/ \

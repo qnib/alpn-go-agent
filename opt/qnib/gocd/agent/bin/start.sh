@@ -1,5 +1,8 @@
 #!/usr/local/bin/dumb-init /bin/bash
 
+source /opt/qnib/consul/etc/bash_functions.sh
+wait_for_srv gocd-server
+
 if [ "X${GOCD_AGENT_AUTOENABLE_KEY}" != "X" ];then
     GOCD_KEY=$(echo ${GOCD_AGENT_AUTOENABLE_KEY}| tr -d '"')
     sed -i -e "s/agent.auto.register.key=.*/agent.auto.register.key=${GOCD_KEY}/" /opt/go-agent/config/autoregister.properties
