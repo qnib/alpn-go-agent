@@ -1,4 +1,4 @@
-FROM qnib/gocd-base:16.6.0
+FROM qnib/gocd-base
 
 ENV GO_SERVER=gocd-server.node.consul \
     GOCD_LOCAL_DOCKERENGINE=false \
