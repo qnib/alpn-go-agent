@@ -22,28 +22,3 @@ function query_parent {
     export PREV_REV=$(curl -s "${QUERY_URL}" |jq ".build_cause.material_revisions[0].modifications[0].revision" |tr -d '"')
     echo ">> PREV_REV:${PREV_REV}"
 }
-
-function add_reg_to_dockerfile {
-    echo ">>>> Add DOCKER_REG to Dockerfile"
-    REG_IMG_NAME=$(grep ^FROM Dockerfile | awk '{print $2}')
-    if [ $(echo ${REG_IMG_NAME} | grep -o "/" | wc -l) -gt 1 ];then
-        echo "Sure you wanna add the registry? Looks not right: ${REG_IMG_NAME}"
-    elif [ $(echo ${REG_IMG_NAME} | grep -o "/" | wc -l) -eq 0 ];then
-        echo "Image is an official one, so we skip it '${REG_IMG_NAME}'"
-    else
-        if [ ! -z ${DOCKER_REG} ];then
-            cat Dockerfile |sed -e "s;FROM.*;FROM ${DOCKER_REG}/${REG_IMG_NAME};" > Dockerfile.new
-            mv Dockerfile.new Dockerfile
-            docker pull ${DOCKER_REG}/${REG_IMG_NAME}
-         fi
-    fi
-}
-
-function build_dockerfile {
-    echo ">>>> Build Dockerfile"
-    docker build -t ${BUILD_IMG_NAME} .
-    if [ -f Dockerfile.bkp ];then
-        echo ">>>> Restore original"
-        mv Dockerfile.bkp Dockerfile
-    fi
-}
