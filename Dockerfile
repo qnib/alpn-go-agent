@@ -21,10 +21,13 @@ RUN wget -qO /usr/local/bin/go-dckrimg $(/usr/local/bin/go-github rLatestUrl --g
 ADD etc/supervisord.d/gocd-agent.ini \
     etc/supervisord.d/docker-engine.ini \
     /etc/supervisord.d/
-ADD opt/qnib/gocd/agent/bin/start.sh /opt/qnib/gocd/agent/bin/
+ADD opt/qnib/gocd/agent/bin/start.sh \
+    opt/qnib/gocd/agent/bin/check.sh \
+    /opt/qnib/gocd/agent/bin/
 ADD opt/go-agent/config/autoregister.properties /opt/go-agent/config/
 VOLUME ["/var/lib/docker/"]
 ADD etc/consul.d/docker-engine.json \
+    etc/consul.d/gocd-agent.json \
     etc/consul.d/
 ADD opt/qnib/docker/engine/bin/start.sh /opt/qnib/docker/engine/bin/
 ADD opt/qnib/gocd/tasks/docker/build.sh \
