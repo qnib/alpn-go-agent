@@ -11,7 +11,7 @@ if [ "X${GOCD_LOCAL_DOCKERENGINE}" == "Xtrue" ];then
 	GOCD_AGENT_AUTOENABLE_RESOURCES=$(extend_list ${GOCD_AGENT_AUTOENABLE_RESOURCES} docker-engine)
 fi
 
-consul -once -template "/etc/consul-templates/gocd/autoregister.properties.ctmpl:/opt/go-agent/config/autoregister.properties"
+consul-template -once -template "/etc/consul-templates/gocd/autoregister.properties.ctmpl:/opt/go-agent/config/autoregister.properties"
 
 /opt/go-agent/agent.sh 2>&1 1>/var/log/gocd-agent.log &
 echo $$ > /opt/go-agent/go-agent.pid
