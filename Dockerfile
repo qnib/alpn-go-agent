@@ -5,6 +5,8 @@ ENV GO_SERVER=gocd-server \
     GOCD_CLEAN_IMAGES=false \
     DOCKER_TAG_REV=true \
     GOCD_AGENT_AUTOENABLE_KEY=gocdFTW \
+    GOCD_AGENT_AUTOENABLE_ENV=latest,upstream,stack-test,stack \
+    GOCD_AGENT_AUTOENABLE_RESOURCES=alpine \
     DOCKER_REPO_DEFAULT=qnib
 RUN apk add --update wget git docker jq perl sed bc curl \
  && pip install docker-compose \

@@ -1,16 +1,17 @@
 #!/usr/local/bin/dumb-init /bin/bash
 
+function extend_list {
+    python -c "import sys ; first = set(sys.argv[1].split(',')) ; all = first.union(set(sys.argv[2:])) ; print ','.join(all)" $@
+}
+
 source /opt/qnib/consul/etc/bash_functions.sh
 wait_for_srv gocd-server
 
-if [ "X${GOCD_AGENT_AUTOENABLE_KEY}" != "X" ];then
-    GOCD_KEY=$(echo ${GOCD_AGENT_AUTOENABLE_KEY}| tr -d '"')
-    sed -i -e "s/agent.auto.register.key=.*/agent.auto.register.key=${GOCD_KEY}/" /opt/go-agent/config/autoregister.properties
+if [ "X${GOCD_LOCAL_DOCKERENGINE}" == "Xtrue" ];then
+	GOCD_AGENT_AUTOENABLE_RESOURCES=$(extend_list ${GOCD_AGENT_AUTOENABLE_RESOURCES} docker-engine)
 fi
 
-if [ "X${GOCD_LOCAL_DOCKERENGINE}" == "Xtrue" ];then
-    sed -i -e 's/agent.auto.register.resources=.*/agent.auto.register.resources=docker-engine/' /opt/go-agent/config/autoregister.properties
-fi
+consul -once -template "/etc/consul-templates/gocd/autoregister.properties.ctmpl:/opt/go-agent/config/autoregister.properties"
 
 /opt/go-agent/agent.sh 2>&1 1>/var/log/gocd-agent.log &
 echo $$ > /opt/go-agent/go-agent.pid
