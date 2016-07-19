@@ -8,7 +8,7 @@ ENV GO_SERVER=gocd-server \
     GOCD_AGENT_AUTOENABLE_ENV=latest,upstream,stack-test,stack \
     GOCD_AGENT_AUTOENABLE_RESOURCES=alpine \
     DOCKER_REPO_DEFAULT=qnib
-RUN apk add --update wget git docker jq perl sed bc curl \
+RUN apk add --update wget git docker jq perl sed bc curl openssl \
  && pip install docker-compose \
  && wget -qO /tmp/go-agent.zip https://download.go.cd/binaries/${GOCD_VER}-${GOCD_SUBVER}/generic/go-agent-${GOCD_VER}-${GOCD_SUBVER}.zip \
  && mkdir -p /opt/ && cd /opt/ \
