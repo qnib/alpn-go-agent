@@ -11,7 +11,7 @@ else
 fi
 export GOCD_JOB_URL=${GOCD_SERVER_URL}/pipelines/${GO_PIPELINE_NAME}/${GO_PIPELINE_COUNTER}/${GO_STAGE_NAME}/${GO_STAGE_COUNTER}
 export GOCD_INSTANCE_URL=${GOCD_SERVER_URL}/api/pipelines/${GO_PIPELINE_NAME}/instance/${GO_PIPELINE_COUNTER}
-export BUILD_MSG=$(curl -s ${GOCD_INSTANCE_URL} |jq ' .build_cause.material_revisions[].modifications[] | select(.user_name != "Unknown") | .user_name + " > " + .comment' | tr -d '"')
+export BUILD_MSG=$(curl -s ${GOCD_INSTANCE_URL} |jq ' .build_cause.material_revisions[].modifications[] | select(.user_name != "Unknown") | .user_name + " > " + .comment' |sed -e 's/"$/\\n"/' |tr -d '"')
 export BUILD_TRIGGER=$(curl -s ${GOCD_INSTANCE_URL} |jq ' .build_cause.trigger_message' |tr -d '\"')
 cat << EOF > /tmp/msg.json
 {
