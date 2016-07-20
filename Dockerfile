@@ -41,4 +41,6 @@ ADD opt/qnib/gocd/tasks/docker/build.sh \
     opt/qnib/gocd/tasks/docker/test.sh \
     /opt/qnib/gocd/tasks/docker/
 ADD etc/consul-templates/gocd/autoregister.properties.ctmpl /etc/consul-templates/gocd/
-ADD opt/qnib/gocd/helpers/gocd-functions.sh /opt/qnib/gocd/helpers/
+ADD opt/qnib/gocd/helpers/gocd-functions.sh \
+    opt/qnib/gocd/helpers/sent-rc.sh \
+    /opt/qnib/gocd/helpers/
