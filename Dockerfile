@@ -34,5 +34,8 @@ VOLUME ["/var/lib/docker/"]
 ADD etc/consul.d/docker-engine.json \
     etc/consul.d/gocd-agent.json \
     etc/consul.d/
+ADD opt/qnib/gocd/agent/bin/check.sh \
+    opt/qnib/gocd/agent/bin/start.sh \
+    /opt/qnib/gocd/agent/bin/
 ADD opt/qnib/docker/engine/bin/start.sh /opt/qnib/docker/engine/bin/
 ADD etc/consul-templates/gocd/autoregister.properties.ctmpl /etc/consul-templates/gocd/
