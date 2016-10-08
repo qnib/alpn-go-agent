@@ -39,3 +39,4 @@ ADD opt/qnib/gocd/agent/bin/check.sh \
     /opt/qnib/gocd/agent/bin/
 ADD opt/qnib/docker/engine/bin/start.sh /opt/qnib/docker/engine/bin/
 ADD etc/consul-templates/gocd/autoregister.properties.ctmpl /etc/consul-templates/gocd/
+RUN echo "tail -f /var/log/supervisor/gocd-agent.log" >> /root/.bash_history
