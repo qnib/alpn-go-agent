@@ -18,4 +18,4 @@ else
     exit 0
 fi
 
-docker daemon -H unix:///var/run/docker.sock --insecure-registry docker-registry.service.consul ${DOCKER_OPTS}
+dockerd -H unix:///var/run/docker.sock --insecure-registry docker-registry.service.consul ${DOCKER_OPTS}
