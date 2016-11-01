@@ -18,4 +18,8 @@ else
     exit 0
 fi
 
-docker daemon -H unix:///var/run/docker.sock --insecure-registry docker-registry.service.consul ${DOCKER_OPTS}
+if [ "X${DOCKER_CONSUL_DNS}" == "Xtrue" ];then
+    DOCKER_DNS=--dns=$(consul members |awk '/\s+server\s+/{print $2}' |awk -F\: '{print $1}')
+fi
+
+docker daemon -H unix:///var/run/docker.sock --insecure-registry docker-registry.service.consul ${DOCKER_DNS} ${DOCKER_OPTS}

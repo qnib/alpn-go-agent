@@ -8,7 +8,8 @@ ENV GO_SERVER=gocd-server \
     GOCD_AGENT_AUTOENABLE_ENV=latest,upstream,stack-test,stack \
     GOCD_AGENT_AUTOENABLE_RESOURCES=alpine \
     DOCKER_REPO_DEFAULT=qnib \
-    GOPATH=/usr/local/
+    GOPATH=/usr/local/ \
+    DOCKER_CONSUL_DNS=false
 RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make \
  && go get cmd/vet \
  && apk add 'docker>1.12' --no-cache --repository http://mirror.netcologne.de/alpine/edge/community/ \
