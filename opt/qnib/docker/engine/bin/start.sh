@@ -19,6 +19,8 @@ else
 fi
 
 if [ "X${DOCKER_CONSUL_DNS}" == "Xtrue" ];then
+    source /opt/qnib/consul/etc/bash_functions.sh
+    wait_for_srv consul-http
     DOCKER_DNS=--dns=$(consul members |awk '/\s+server\s+/{print $2}' |awk -F\: '{print $1}')
 fi
 
