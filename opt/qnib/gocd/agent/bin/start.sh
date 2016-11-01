@@ -4,8 +4,10 @@ function extend_list {
     python -c "import sys ; first = set(sys.argv[1].split(',')) ; all = first.union(set(sys.argv[2:])) ; print ','.join(all)" $@
 }
 
-source /opt/qnib/consul/etc/bash_functions.sh
-wait_for_srv gocd-server
+if [ "X${GOCD_SKIP_WAIT}" != "Xtrue" ];then
+    source /opt/qnib/consul/etc/bash_functions.sh
+    wait_for_srv gocd-server
+fi
 
 if [ "X${GOCD_LOCAL_DOCKERENGINE}" == "Xtrue" ];then
 	GOCD_AGENT_AUTOENABLE_RESOURCES=$(extend_list ${GOCD_AGENT_AUTOENABLE_RESOURCES} docker-engine)
