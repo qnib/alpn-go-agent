@@ -10,7 +10,7 @@ ENV GO_SERVER=gocd-server \
     DOCKER_REPO_DEFAULT=qnib \
     GOPATH=/usr/local/ \
     DOCKER_CONSUL_DNS=false
-RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make \
+RUN apk add --no-cache wget git jq perl sed bc curl go linux-vanilla-dev gcc openssl make file \
  && go get cmd/vet \
  && apk add 'docker>1.12' --no-cache --repository http://mirror.netcologne.de/alpine/edge/community/ \
  && pip install docker-compose \
